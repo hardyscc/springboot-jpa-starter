@@ -1,0 +1,1 @@
+insert into message (hosp_code, code, description, status) values ('VH', '1001',  'Request no. format is invalid.', 'A');
