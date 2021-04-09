@@ -3,6 +3,7 @@ package com.example.sjs.controller;
 import com.example.sjs.dto.TestDTO;
 import com.example.sjs.entity.Test;
 import com.example.sjs.entity.TestVer;
+import com.example.sjs.entity.TestVerProp;
 import com.example.sjs.repository.TestRepository;
 import com.example.sjs.repository.TestVerRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -48,9 +51,14 @@ public class TestController {
                 .build();
         test = this.testRepository.save(test);
 
+        List<TestVerProp> props = input.getProps().stream().map((prop) ->
+                TestVerProp.builder().name(prop.getName()).value(prop.getValue()).build()
+        ).collect(Collectors.toList());
+
         TestVer testVer = TestVer.builder()
                 .name(input.getName())
                 .test(test)
+                .props(props)
                 .version(1)
                 .build();
         testVer = this.testVerRepository.save(testVer);
@@ -73,9 +81,15 @@ public class TestController {
 
         TestVer testVer = test.getTestVers().get(0);
         if (!testVer.getName().equals(input.getName())) {
+
+            List<TestVerProp> props = input.getProps().stream().map((prop) ->
+                    TestVerProp.builder().name(prop.getName()).value(prop.getValue()).build()
+            ).collect(Collectors.toList());
+
             testVer = testVer.toBuilder()
                     .id(null)
                     .name(input.getName())
+                    .props(props)
                     .version(testVer.getVersion() + 1)
                     .build();
             testVer = this.testVerRepository.save(testVer);

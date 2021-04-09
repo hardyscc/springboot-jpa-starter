@@ -1,14 +1,15 @@
 package com.example.sjs.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestVer {
+public class TestVerProp {
 
     @Id
     @GeneratedValue
@@ -24,18 +25,9 @@ public class TestVer {
     @Column(length = 36)
     private UUID id;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Test test;
-
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
-    private int version;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "test_ver_id")
-    private List<TestVerProp> props;
+    private String value;
 }
