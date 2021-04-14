@@ -1,9 +1,10 @@
 package com.example.sjs.controller;
 
-import com.example.sjs.dto.TestDTO;
+import com.example.sjs.dto.TestDto;
 import com.example.sjs.entity.Test;
 import com.example.sjs.entity.TestVer;
-import com.example.sjs.entity.TestVerProp;
+import com.example.sjs.mapper.TestMapper;
+import com.example.sjs.mapper.TestVerPropMapper;
 import com.example.sjs.repository.TestRepository;
 import com.example.sjs.repository.TestVerRepository;
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
@@ -26,6 +25,8 @@ public class TestController {
 
     private final TestRepository testRepository;
     private final TestVerRepository testVerRepository;
+    private final TestMapper testMapper;
+    private final TestVerPropMapper testVerPropMapper;
 
     @Operation(tags = "Test")
     @GetMapping(path = "/test/{code}")
@@ -39,26 +40,20 @@ public class TestController {
 
     @Operation(tags = "Test")
     @PostMapping(path = "/test")
-    public Test createTest(@RequestBody TestDTO input) {
+    public Test createTest(@RequestBody TestDto input) {
         log.info("createTest {}", input);
 
         if (this.testRepository.existsById(input.getCode())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        Test test = Test.builder()
-                .code(input.getCode())
-                .build();
+        Test test = this.testMapper.fromDto(input);
         test = this.testRepository.save(test);
-
-        List<TestVerProp> props = input.getProps().stream().map((prop) ->
-                TestVerProp.builder().name(prop.getName()).value(prop.getValue()).build()
-        ).collect(Collectors.toList());
 
         TestVer testVer = TestVer.builder()
                 .name(input.getName())
                 .test(test)
-                .props(props)
+                .props(this.testVerPropMapper.fromDtos(input.getProps()))
                 .version(1)
                 .build();
         testVer = this.testVerRepository.save(testVer);
@@ -72,7 +67,7 @@ public class TestController {
 
     @Operation(tags = "Test")
     @PutMapping(path = "/test")
-    public Test updateTest(@RequestBody TestDTO input) {
+    public Test updateTest(@RequestBody TestDto input) {
         log.info("updateTest {}", input);
 
         Test test = this.testRepository.findById(input.getCode()).orElseThrow(
@@ -82,14 +77,10 @@ public class TestController {
         TestVer testVer = test.getTestVers().get(0);
         if (!testVer.getName().equals(input.getName())) {
 
-            List<TestVerProp> props = input.getProps().stream().map((prop) ->
-                    TestVerProp.builder().name(prop.getName()).value(prop.getValue()).build()
-            ).collect(Collectors.toList());
-
             testVer = testVer.toBuilder()
                     .id(null)
                     .name(input.getName())
-                    .props(props)
+                    .props(this.testVerPropMapper.fromDtos(input.getProps()))
                     .version(testVer.getVersion() + 1)
                     .build();
             testVer = this.testVerRepository.save(testVer);

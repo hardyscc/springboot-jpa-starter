@@ -1,7 +1,7 @@
 package com.example.sjs;
 
-import com.example.sjs.dto.TestDTO;
-import com.example.sjs.dto.TestPropDTO;
+import com.example.sjs.dto.TestDto;
+import com.example.sjs.dto.TestPropDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +38,11 @@ class SpringbootJpaStarterApplicationTests {
 
         ResponseEntity<com.example.sjs.entity.Test> postResponse = this.restTemplate.postForEntity(
                 "/test",
-                TestDTO.builder()
+                TestDto.builder()
                         .code(code)
                         .name(name)
                         .props(Collections.singletonList(
-                                TestPropDTO.builder().name(propName).value(propValue).build()
+                                TestPropDto.builder().name(propName).value(propValue).build()
                         ))
                         .build(),
                 com.example.sjs.entity.Test.class);
@@ -61,11 +61,11 @@ class SpringbootJpaStarterApplicationTests {
         ResponseEntity<com.example.sjs.entity.Test> putResponse = this.restTemplate.exchange(
                 "/test",
                 HttpMethod.PUT,
-                new HttpEntity<>(TestDTO.builder()
+                new HttpEntity<>(TestDto.builder()
                         .code(code)
                         .name(name + " v2")
                         .props(Collections.singletonList(
-                                TestPropDTO.builder().name(propName).value(propValue).build()
+                                TestPropDto.builder().name(propName).value(propValue).build()
                         ))
                         .build()),
                 com.example.sjs.entity.Test.class);
