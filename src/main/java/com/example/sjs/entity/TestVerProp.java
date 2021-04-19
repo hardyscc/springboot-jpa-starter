@@ -16,7 +16,7 @@ public class TestVerProp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerPropSeq")
-    @SequenceGenerator(name = "testVerPropSeq", sequenceName = "SQ_TEST_VER_PROP")
+    @SequenceGenerator(name = "testVerPropSeq", sequenceName = "sq_test_ver_prop")
     private Long id;
 
     @Column(nullable = false)

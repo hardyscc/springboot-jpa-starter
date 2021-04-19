@@ -18,7 +18,7 @@ public class TestVer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerSeq")
-    @SequenceGenerator(name = "testVerSeq", sequenceName = "SQ_TEST_VER")
+    @SequenceGenerator(name = "testVerSeq", sequenceName = "sq_test_ver")
     private Long id;
 
     @JsonIgnore
