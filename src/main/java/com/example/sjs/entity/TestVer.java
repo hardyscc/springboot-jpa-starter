@@ -5,11 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Builder(toBuilder = true)
@@ -19,10 +17,9 @@ import java.util.UUID;
 public class TestVer {
 
     @Id
-    @GeneratedValue
-    @Type(type = "uuid-char")
-    @Column(length = 36)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerSeq")
+    @SequenceGenerator(name = "testVerSeq", sequenceName = "SQ_TEST_VER")
+    private Long id;
 
     @JsonIgnore
     @ManyToOne

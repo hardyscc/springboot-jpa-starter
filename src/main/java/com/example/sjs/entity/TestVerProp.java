@@ -4,13 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.UUID;
+import javax.persistence.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -20,10 +15,9 @@ import java.util.UUID;
 public class TestVerProp {
 
     @Id
-    @GeneratedValue
-    @Type(type = "uuid-char")
-    @Column(length = 36)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerPropSeq")
+    @SequenceGenerator(name = "testVerPropSeq", sequenceName = "SQ_TEST_VER_PROP")
+    private Long id;
 
     @Column(nullable = false)
     private String name;
