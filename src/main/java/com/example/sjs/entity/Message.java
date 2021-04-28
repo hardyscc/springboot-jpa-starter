@@ -1,13 +1,10 @@
 package com.example.sjs.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.sjs.udt.RecordStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
 @IdClass(MessagePk.class)
@@ -20,6 +17,7 @@ public class Message {
     @Id
     private String code;
 
+    @Lob
     @Column(nullable = false)
     private String description;
 

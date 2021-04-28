@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
@@ -16,6 +17,9 @@ public class TestDto {
 
     @NotBlank
     private String name;
+
+    @NotEmpty
+    private String[] attributes;
 
     @Valid
     private List<TestPropDto> props;

@@ -29,6 +29,10 @@ public class TestVer {
     @Column(nullable = false)
     private String name;
 
+    @Lob
+    @Column(nullable = false)
+    private String[] attributes;
+
     @Column(nullable = false)
     private int version;
 

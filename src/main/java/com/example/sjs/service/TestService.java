@@ -39,6 +39,7 @@ public class TestService {
 
         TestVer testVer = TestVer.builder()
                 .name(input.getName())
+                .attributes(input.getAttributes())
                 .test(test)
                 .props(this.testVerPropMapper.fromDtos(input.getProps()))
                 .version(1)

@@ -2,6 +2,7 @@ package com.example.sjs;
 
 import com.example.sjs.dto.TestDto;
 import com.example.sjs.dto.TestPropDto;
+import com.example.sjs.entity.Message;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ class SpringbootJpaStarterApplicationTests {
 
         String code = "T01";
         String name = "Testing 01";
+        String[] attributes = {"AT01", "AT02"};
         String propName = "color";
         String propValue = "black";
 
@@ -41,6 +43,7 @@ class SpringbootJpaStarterApplicationTests {
                 TestDto.builder()
                         .code(code)
                         .name(name)
+                        .attributes(attributes)
                         .props(Collections.singletonList(
                                 TestPropDto.builder().name(propName).value(propValue).build()
                         ))
@@ -52,6 +55,8 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertNotNull(postResponse.getBody()),
                 () -> Assertions.assertEquals(code, Objects.requireNonNull(postResponse.getBody()).getCode()),
                 () -> Assertions.assertEquals(name, postResponse.getBody().getTestVerLatest().getName()),
+                () -> Assertions.assertEquals(attributes[0], postResponse.getBody().getTestVerLatest().getAttributes()[0]),
+                () -> Assertions.assertEquals(attributes[1], postResponse.getBody().getTestVerLatest().getAttributes()[1]),
                 () -> Assertions.assertEquals(1, postResponse.getBody().getTestVerLatest().getVersion()),
                 () -> Assertions.assertEquals(propName, postResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, postResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
@@ -64,6 +69,7 @@ class SpringbootJpaStarterApplicationTests {
                 new HttpEntity<>(TestDto.builder()
                         .code(code)
                         .name(name + " v2")
+                        .attributes(attributes)
                         .props(Collections.singletonList(
                                 TestPropDto.builder().name(propName).value(propValue).build()
                         ))
@@ -75,6 +81,8 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertNotNull(putResponse.getBody()),
                 () -> Assertions.assertEquals(code, Objects.requireNonNull(putResponse.getBody()).getCode()),
                 () -> Assertions.assertEquals(name + " v2", putResponse.getBody().getTestVerLatest().getName()),
+                () -> Assertions.assertEquals(attributes[0], putResponse.getBody().getTestVerLatest().getAttributes()[0]),
+                () -> Assertions.assertEquals(attributes[1], putResponse.getBody().getTestVerLatest().getAttributes()[1]),
                 () -> Assertions.assertEquals(2, putResponse.getBody().getTestVerLatest().getVersion()),
                 () -> Assertions.assertEquals(propName, putResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, putResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
@@ -90,10 +98,26 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertNotNull(verifyResponse.getBody()),
                 () -> Assertions.assertEquals(code, Objects.requireNonNull(verifyResponse.getBody()).getCode()),
                 () -> Assertions.assertEquals(name + " v2", verifyResponse.getBody().getTestVerLatest().getName()),
+                () -> Assertions.assertEquals(attributes[0], verifyResponse.getBody().getTestVerLatest().getAttributes()[0]),
+                () -> Assertions.assertEquals(attributes[1], verifyResponse.getBody().getTestVerLatest().getAttributes()[1]),
                 () -> Assertions.assertEquals(2, verifyResponse.getBody().getTestVerLatest().getVersion()),
                 () -> Assertions.assertEquals(propName, verifyResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, verifyResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
         );
+    }
+
+    @Test
+    void messageTest() {
+        ResponseEntity<Message> getResponse = this.restTemplate.getForEntity(
+                "/message/VH/1001",
+                Message.class);
+
+        Assertions.assertAll("Verify Message : ",
+                () -> Assertions.assertEquals(HttpStatus.OK, getResponse.getStatusCode()),
+                () -> Assertions.assertNotNull(getResponse.getBody()),
+                () -> Assertions.assertEquals("Request no. format is invalid.", Objects.requireNonNull(getResponse.getBody()).getDescription())
+        );
+
     }
 
 }
