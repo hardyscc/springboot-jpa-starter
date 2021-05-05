@@ -1,15 +1,18 @@
 package com.example.sjs.entity;
 
+import com.example.sjs.entity.base.BaseEntity;
 import com.example.sjs.udt.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
 @Entity
 @IdClass(MessagePk.class)
 @Data
-public class Message {
+@EqualsAndHashCode(callSuper = false)
+public class Message extends BaseEntity {
 
     @Id
     private String hospCode;

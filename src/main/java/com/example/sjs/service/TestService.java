@@ -42,7 +42,7 @@ public class TestService {
                 .attributes(input.getAttributes())
                 .test(test)
                 .props(this.testVerPropMapper.fromDtos(input.getProps()))
-                .version(1)
+                .ver(1)
                 .build();
         testVer = this.testVerRepository.save(testVer);
 
@@ -65,7 +65,7 @@ public class TestService {
                     .id(null)
                     .name(input.getName())
                     .props(this.testVerPropMapper.fromDtos(input.getProps()))
-                    .version(testVer.getVersion() + 1)
+                    .ver(testVer.getVer() + 1)
                     .build();
             testVer = this.testVerRepository.save(testVer);
 

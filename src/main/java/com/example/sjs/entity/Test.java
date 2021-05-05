@@ -1,10 +1,8 @@
 package com.example.sjs.entity;
 
+import com.example.sjs.entity.base.VersionEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,9 +10,10 @@ import java.util.List;
 @Entity
 @Builder
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Test {
+public class Test extends VersionEntity {
 
     @Id
     private String code;
@@ -25,6 +24,6 @@ public class Test {
 
     @JsonIgnore
     @OneToMany(mappedBy = "test")
-    @OrderBy("version desc")
+    @OrderBy("ver desc")
     private List<TestVer> testVers;
 }

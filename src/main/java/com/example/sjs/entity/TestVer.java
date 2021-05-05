@@ -1,10 +1,8 @@
 package com.example.sjs.entity;
 
+import com.example.sjs.entity.base.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,9 +10,10 @@ import java.util.List;
 @Entity
 @Builder(toBuilder = true)
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestVer {
+public class TestVer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerSeq")
@@ -34,7 +33,7 @@ public class TestVer {
     private String[] attributes;
 
     @Column(nullable = false)
-    private int version;
+    private Integer ver;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "test_ver_id")

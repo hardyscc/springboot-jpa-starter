@@ -57,7 +57,7 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertEquals(name, postResponse.getBody().getTestVerLatest().getName()),
                 () -> Assertions.assertEquals(attributes[0], postResponse.getBody().getTestVerLatest().getAttributes()[0]),
                 () -> Assertions.assertEquals(attributes[1], postResponse.getBody().getTestVerLatest().getAttributes()[1]),
-                () -> Assertions.assertEquals(1, postResponse.getBody().getTestVerLatest().getVersion()),
+                () -> Assertions.assertEquals(1, postResponse.getBody().getTestVerLatest().getVer()),
                 () -> Assertions.assertEquals(propName, postResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, postResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
         );
@@ -83,7 +83,7 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertEquals(name + " v2", putResponse.getBody().getTestVerLatest().getName()),
                 () -> Assertions.assertEquals(attributes[0], putResponse.getBody().getTestVerLatest().getAttributes()[0]),
                 () -> Assertions.assertEquals(attributes[1], putResponse.getBody().getTestVerLatest().getAttributes()[1]),
-                () -> Assertions.assertEquals(2, putResponse.getBody().getTestVerLatest().getVersion()),
+                () -> Assertions.assertEquals(2, putResponse.getBody().getTestVerLatest().getVer()),
                 () -> Assertions.assertEquals(propName, putResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, putResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
         );
@@ -100,7 +100,7 @@ class SpringbootJpaStarterApplicationTests {
                 () -> Assertions.assertEquals(name + " v2", verifyResponse.getBody().getTestVerLatest().getName()),
                 () -> Assertions.assertEquals(attributes[0], verifyResponse.getBody().getTestVerLatest().getAttributes()[0]),
                 () -> Assertions.assertEquals(attributes[1], verifyResponse.getBody().getTestVerLatest().getAttributes()[1]),
-                () -> Assertions.assertEquals(2, verifyResponse.getBody().getTestVerLatest().getVersion()),
+                () -> Assertions.assertEquals(2, verifyResponse.getBody().getTestVerLatest().getVer()),
                 () -> Assertions.assertEquals(propName, verifyResponse.getBody().getTestVerLatest().getProps().get(0).getName()),
                 () -> Assertions.assertEquals(propValue, verifyResponse.getBody().getTestVerLatest().getProps().get(0).getValue())
         );
