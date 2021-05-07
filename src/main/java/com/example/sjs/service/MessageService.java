@@ -7,6 +7,8 @@ import com.example.sjs.repository.MessageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class MessageService {
@@ -18,5 +20,9 @@ public class MessageService {
                 () -> new NotFoundException(
                         String.format("Message %s:%s not found", hospCode, messageCode))
         );
+    }
+
+    public List<Message> findAll() {
+        return this.messageRepository.findAll();
     }
 }

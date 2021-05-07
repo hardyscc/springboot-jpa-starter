@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @Slf4j
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,5 +29,12 @@ public class MessageController {
     ) {
         log.info("getMessage {} {} ", hospCode, messageCode);
         return this.messageService.findById(hospCode, messageCode);
+    }
+
+    @Operation(tags = "Message")
+    @GetMapping(path = "/message")
+    public List<Message> getMessages() {
+        log.info("getMessages");
+        return this.messageService.findAll();
     }
 }

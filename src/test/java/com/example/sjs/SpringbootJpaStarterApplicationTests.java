@@ -108,16 +108,28 @@ class SpringbootJpaStarterApplicationTests {
 
     @Test
     void messageTest() {
+
+        String hospCode = "VH";
+        String messageCode = "1001";
+
         ResponseEntity<Message> getResponse = this.restTemplate.getForEntity(
-                "/message/VH/1001",
+                String.format("/message/%s/%s", hospCode, messageCode),
                 Message.class);
 
-        Assertions.assertAll("Verify Message : ",
+        Assertions.assertAll(String.format("Get Message : %s %s", hospCode, messageCode),
                 () -> Assertions.assertEquals(HttpStatus.OK, getResponse.getStatusCode()),
                 () -> Assertions.assertNotNull(getResponse.getBody()),
                 () -> Assertions.assertEquals("Request no. format is invalid.", Objects.requireNonNull(getResponse.getBody()).getDescription())
         );
 
+        ResponseEntity<Message[]> getAllResponse = this.restTemplate.getForEntity(
+                "/message", Message[].class);
+
+        Assertions.assertAll("Get Messages",
+                () -> Assertions.assertEquals(HttpStatus.OK, getAllResponse.getStatusCode()),
+                () -> Assertions.assertNotNull(getAllResponse.getBody()),
+                () -> Assertions.assertEquals(1, Objects.requireNonNull(getAllResponse.getBody()).length)
+        );
     }
 
 }
