@@ -37,14 +37,13 @@ public class TestService {
         Test test = this.testMapper.fromDto(input);
         test = this.testRepository.save(test);
 
-        TestVer testVer = TestVer.builder()
+        TestVer testVer = this.testVerRepository.save(TestVer.builder()
                 .name(input.getName())
                 .attributes(input.getAttributes())
                 .test(test)
                 .props(this.testVerPropMapper.fromDtos(input.getProps()))
                 .ver(1)
-                .build();
-        testVer = this.testVerRepository.save(testVer);
+                .build());
 
         test.setTestVerLatest(testVer);
         this.testRepository.save(test);
@@ -61,13 +60,12 @@ public class TestService {
         TestVer testVer = test.getTestVers().get(0);
         if (!testVer.getName().equals(input.getName())) {
 
-            testVer = testVer.toBuilder()
+            testVer = this.testVerRepository.save(testVer.toBuilder()
                     .id(null)
                     .name(input.getName())
                     .props(this.testVerPropMapper.fromDtos(input.getProps()))
                     .ver(testVer.getVer() + 1)
-                    .build();
-            testVer = this.testVerRepository.save(testVer);
+                    .build());
 
             test.setTestVerLatest(testVer);
             this.testRepository.save(test);
