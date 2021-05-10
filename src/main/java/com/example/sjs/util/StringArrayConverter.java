@@ -18,7 +18,6 @@ public class StringArrayConverter implements AttributeConverter<String[], String
         } catch (JsonProcessingException e) {
             return null;
         }
-
     }
 
     @Override
