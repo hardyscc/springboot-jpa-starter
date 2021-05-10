@@ -9,23 +9,24 @@ import javax.persistence.Converter;
 @Converter(autoApply = true)
 public class StringArrayConverter implements AttributeConverter<String[], String> {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public String convertToDatabaseColumn(String[] attribute) {
         try {
-            return new ObjectMapper().writeValueAsString(attribute);
+            return this.objectMapper.writeValueAsString(attribute);
         } catch (JsonProcessingException e) {
-            // ignore
+            return null;
         }
-        return null;
+
     }
 
     @Override
     public String[] convertToEntityAttribute(String dbData) {
         try {
-            return new ObjectMapper().readValue(dbData, String[].class);
+            return this.objectMapper.readValue(dbData, String[].class);
         } catch (JsonProcessingException e) {
-            // ignore
+            return null;
         }
-        return null;
     }
 }
