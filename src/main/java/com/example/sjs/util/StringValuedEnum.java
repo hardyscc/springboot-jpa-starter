@@ -7,7 +7,7 @@ public interface StringValuedEnum {
      *
      * @return string value.
      */
-    public String getDataValue();
+    String getDataValue();
 
-    public String getDisplayValue();
+    String getDisplayValue();
 }
