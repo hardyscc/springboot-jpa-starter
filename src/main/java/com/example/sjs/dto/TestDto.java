@@ -1,14 +1,16 @@
 package com.example.sjs.dto;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Builder
 public class TestDto {
 
