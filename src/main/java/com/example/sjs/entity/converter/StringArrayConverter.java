@@ -1,6 +1,5 @@
-package com.example.sjs.entity;
+package com.example.sjs.entity.converter;
 
-import com.example.sjs.vo.RegisterInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,13 +8,13 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class RegisterInfoConverter implements AttributeConverter<RegisterInfo, String> {
+public class StringArrayConverter implements AttributeConverter<String[], String> {
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
-    public String convertToDatabaseColumn(RegisterInfo attribute) {
+    public String convertToDatabaseColumn(String[] attribute) {
         try {
             return this.objectMapper.writeValueAsString(attribute);
         } catch (JsonProcessingException e) {
@@ -24,9 +23,9 @@ public class RegisterInfoConverter implements AttributeConverter<RegisterInfo, S
     }
 
     @Override
-    public RegisterInfo convertToEntityAttribute(String dbData) {
+    public String[] convertToEntityAttribute(String dbData) {
         try {
-            return this.objectMapper.readValue(dbData, RegisterInfo.class);
+            return this.objectMapper.readValue(dbData, String[].class);
         } catch (JsonProcessingException e) {
             return null;
         }
