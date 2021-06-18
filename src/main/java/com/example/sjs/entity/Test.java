@@ -9,8 +9,8 @@ import java.util.List;
 
 @Entity
 @Builder
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Test extends VersionEntity {

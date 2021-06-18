@@ -3,15 +3,15 @@ package com.example.sjs.entity;
 import com.example.sjs.entity.base.BaseEntity;
 import com.example.sjs.udt.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @IdClass(MessagePk.class)
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 public class Message extends BaseEntity {
 
     @Id

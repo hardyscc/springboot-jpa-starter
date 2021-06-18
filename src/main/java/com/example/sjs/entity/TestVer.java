@@ -1,6 +1,7 @@
 package com.example.sjs.entity;
 
 import com.example.sjs.entity.base.BaseEntity;
+import com.example.sjs.vo.RegisterInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -9,8 +10,8 @@ import java.util.List;
 
 @Entity
 @Builder(toBuilder = true)
-@Data
-@EqualsAndHashCode(callSuper = false)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class TestVer extends BaseEntity {
@@ -31,6 +32,10 @@ public class TestVer extends BaseEntity {
     @Lob
     @Column(nullable = false)
     private String[] attributes;
+
+    @Lob
+    @Column(nullable = false)
+    private RegisterInfo registerInfo;
 
     @Column(nullable = false)
     private Integer ver;
