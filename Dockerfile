@@ -12,7 +12,7 @@ RUN mvn package -Dmaven.test.skip=true
 FROM bitnami/java:11-prod
 WORKDIR /app
 
-ENV JAVA_OPTS=""
+ENV JAVA_OPTS="-Duser.timezone=Asia/Hong_Kong"
 
 COPY --from=builder /build/target/*.jar ./target/app.jar
 
