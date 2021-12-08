@@ -26,4 +26,8 @@ public class Test extends VersionEntity {
     @OneToMany(mappedBy = "test")
     @OrderBy("ver desc")
     private List<TestVer> testVers;
+
+    @OneToMany(mappedBy = "ownerTest")
+    @OrderBy("sortSeq")
+    private List<TestDep> testDeps;
 }

@@ -2,11 +2,13 @@ package com.example.sjs.service;
 
 import com.example.sjs.dto.TestDto;
 import com.example.sjs.entity.Test;
+import com.example.sjs.entity.TestDep;
 import com.example.sjs.entity.TestVer;
 import com.example.sjs.exception.impl.BadRequestException;
 import com.example.sjs.exception.impl.NotFoundException;
 import com.example.sjs.mapper.TestMapper;
 import com.example.sjs.mapper.TestVerPropMapper;
+import com.example.sjs.repository.TestDepRepository;
 import com.example.sjs.repository.TestRepository;
 import com.example.sjs.repository.TestVerRepository;
 import com.example.sjs.vo.Autopsy;
@@ -27,6 +29,7 @@ public class TestService {
     private final TestVerRepository testVerRepository;
     private final TestMapper testMapper;
     private final TestVerPropMapper testVerPropMapper;
+    private final TestDepRepository testDepRepository;
 
     public Test getTest(String code) {
         return this.testRepository.findById(code).orElseThrow(
@@ -41,6 +44,12 @@ public class TestService {
 
         Test test = this.testMapper.fromDto(input);
         test = this.testRepository.save(test);
+
+        TestDep testDep = this.testDepRepository.save(TestDep.builder()
+                .ownerTest(test)
+                .depTest(this.testRepository.getOne("dummy"))
+                .sortSeq(1)
+                .build());
 
         TestVer testVer = this.testVerRepository.save(TestVer.builder()
                 .name(input.getName())
@@ -69,6 +78,7 @@ public class TestService {
         test.setTestVerLatest(testVer);
         this.testRepository.save(test);
 
+        test.setTestDeps(Collections.singletonList(testDep));
         test.setTestVers(Collections.singletonList(testVer));
         return test;
     }
