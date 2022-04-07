@@ -15,6 +15,7 @@
     <description>Demo JPA project for Spring Boot</description>
     <properties>
         <java.version>11</java.version>
+        <jacoco.version>0.8.7</jacoco.version>
         <kotlin.version>1.4.31</kotlin.version>
         <springdoc.version>1.5.6</springdoc.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
@@ -81,6 +82,26 @@
                         <id>build-info</id>
                         <goals>
                             <goal>build-info</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
