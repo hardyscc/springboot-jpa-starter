@@ -77,7 +77,7 @@ public class TestService {
                 .build());
 
         test.setTestVerLatest(testVer);
-        this.testRepository.save(test);
+        this.testRepository.flush();
 
         test.setTestDeps(Collections.singletonList(testDep));
         test.setTestVers(Collections.singletonList(testVer));
@@ -100,7 +100,7 @@ public class TestService {
                     .build());
 
             test.setTestVerLatest(testVer);
-            this.testRepository.save(test);
+            this.testRepository.flush();
 
             test.getTestVers().add(0, testVer);
         }
