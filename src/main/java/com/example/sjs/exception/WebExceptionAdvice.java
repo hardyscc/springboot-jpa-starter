@@ -1,5 +1,7 @@
 package com.example.sjs.exception;
 
+import java.sql.SQLException;
+
 import com.example.sjs.exception.impl.BadRequestException;
 import com.example.sjs.exception.impl.ConflictException;
 import com.example.sjs.exception.impl.NotFoundException;
@@ -59,6 +61,17 @@ public class WebExceptionAdvice {
                 ex.getFieldErrors().stream().map((error) -> String.format("%s : %s",
                         error.getField(),
                         error.getDefaultMessage())).toArray(String[]::new),
+                HttpStatus.BAD_REQUEST.getReasonPhrase());
+    }
+
+    @ResponseBody
+    @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ExceptionHandler(SQLException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ErrorMessage sqlExceptionHandler(SQLException ex) {
+        return new ErrorMessage(
+                HttpStatus.BAD_REQUEST.value(),
+                new String[] { ex.getMessage() },
                 HttpStatus.BAD_REQUEST.getReasonPhrase());
     }
 }
