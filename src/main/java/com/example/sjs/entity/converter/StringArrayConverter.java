@@ -1,11 +1,12 @@
 package com.example.sjs.entity.converter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Converter(autoApply = true)
 public class StringArrayConverter implements AttributeConverter<String[], String> {

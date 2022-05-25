@@ -1,12 +1,13 @@
 package com.example.sjs.entity.base;
 
-import lombok.Getter;
-import lombok.Setter;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import java.util.Date;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
 @EntityListeners(BaseEntityListener.class)

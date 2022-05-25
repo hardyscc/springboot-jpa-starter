@@ -2,7 +2,8 @@ package com.example.sjs.util;
 
 import javax.persistence.AttributeConverter;
 
-public abstract class StringValuedEnumConverter<T extends Enum<?> & StringValuedEnum> implements AttributeConverter<T, String> {
+public abstract class StringValuedEnumConverter<T extends Enum<?> & StringValuedEnum>
+        implements AttributeConverter<T, String> {
 
     public abstract Class<T> getEnumClass();
 

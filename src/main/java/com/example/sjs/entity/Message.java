@@ -1,12 +1,17 @@
 package com.example.sjs.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Lob;
+
 import com.example.sjs.entity.base.BaseEntity;
 import com.example.sjs.udt.RecordStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Entity
 @IdClass(MessagePk.class)

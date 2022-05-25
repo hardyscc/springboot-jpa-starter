@@ -1,6 +1,5 @@
 package com.example.sjs.exception.impl;
 
-
 import com.example.sjs.exception.BaseException;
 
 public class BadRequestException extends BaseException {

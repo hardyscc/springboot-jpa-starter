@@ -1,10 +1,10 @@
 package com.example.sjs.udt;
 
+import javax.persistence.Converter;
+
 import com.example.sjs.util.StringValuedEnum;
 import com.example.sjs.util.StringValuedEnumConverter;
 import com.example.sjs.util.StringValuedEnumReflect;
-
-import javax.persistence.Converter;
 
 public enum RecordStatus implements StringValuedEnum {
     Active("A", "Active"),

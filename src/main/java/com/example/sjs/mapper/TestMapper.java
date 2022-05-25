@@ -2,6 +2,7 @@ package com.example.sjs.mapper;
 
 import com.example.sjs.dto.TestDto;
 import com.example.sjs.entity.Test;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

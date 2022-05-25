@@ -1,11 +1,11 @@
 package com.example.sjs.entity.base;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
 @Getter

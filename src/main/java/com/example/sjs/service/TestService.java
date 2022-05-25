@@ -1,5 +1,8 @@
 package com.example.sjs.service;
 
+import java.util.Collections;
+import java.util.Date;
+
 import com.example.sjs.dto.TestDto;
 import com.example.sjs.entity.Test;
 import com.example.sjs.entity.TestDep;
@@ -15,11 +18,10 @@ import com.example.sjs.vo.Autopsy;
 import com.example.sjs.vo.Cytology;
 import com.example.sjs.vo.Gynae;
 import com.example.sjs.vo.RegisterInfo;
-import lombok.AllArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Date;
+import lombok.AllArgsConstructor;
 
 @Service
 @AllArgsConstructor
@@ -33,8 +35,7 @@ public class TestService {
 
     public Test getTest(String code) {
         return this.testRepository.findById(code).orElseThrow(
-                () -> new NotFoundException(String.format("Test %s not found", code))
-        );
+                () -> new NotFoundException(String.format("Test %s not found", code)));
     }
 
     public Test createTest(TestDto input) {
@@ -85,8 +86,7 @@ public class TestService {
 
     public Test updateTest(TestDto input) {
         Test test = this.testRepository.findById(input.getCode()).orElseThrow(
-                () -> new BadRequestException(String.format("Test %s not exists", input.getCode()))
-        );
+                () -> new BadRequestException(String.format("Test %s not exists", input.getCode())));
 
         TestVer testVer = test.getTestVers().get(0);
         if (!testVer.getName().equals(input.getName())) {

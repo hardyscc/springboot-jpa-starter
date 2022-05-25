@@ -1,12 +1,13 @@
 package com.example.sjs.entity.converter;
 
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
 import com.example.sjs.vo.RegisterInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.AttributeConverter;
-import javax.persistence.Converter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Converter(autoApply = true)
 public class RegisterInfoConverter implements AttributeConverter<RegisterInfo, String> {
