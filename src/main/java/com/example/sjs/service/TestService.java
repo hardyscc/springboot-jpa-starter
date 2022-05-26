@@ -48,7 +48,7 @@ public class TestService {
 
         TestDep testDep = this.testDepRepository.save(TestDep.builder()
                 .ownerTest(test)
-                .depTest(this.testRepository.getOne("dummy"))
+                .depTest(this.testRepository.getById("dummy"))
                 .sortSeq(1)
                 .build());
 

@@ -29,6 +29,6 @@ public class TestVerProp {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "\"value\"", nullable = false)
     private String value;
 }

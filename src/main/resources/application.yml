@@ -3,9 +3,8 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:testdb
     platform: h2
-    data:
-      - classpath:data/*.sql
   jpa:
+    defer-datasource-initialization: true
     show-sql: true
     properties:
       hibernate:
