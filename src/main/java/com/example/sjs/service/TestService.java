@@ -3,6 +3,8 @@ package com.example.sjs.service;
 import java.util.Collections;
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import com.example.sjs.dto.TestDto;
 import com.example.sjs.entity.Test;
 import com.example.sjs.entity.TestDep;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import lombok.AllArgsConstructor;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class TestService {
 
@@ -43,12 +46,11 @@ public class TestService {
             throw new BadRequestException(String.format("Test %s already exists", input.getCode()));
         }
 
-        Test test = this.testMapper.fromDto(input);
-        test = this.testRepository.save(test);
+        Test test = this.testRepository.save(this.testMapper.fromDto(input));
 
         TestDep testDep = this.testDepRepository.save(TestDep.builder()
                 .ownerTest(test)
-                .depTest(this.testRepository.getById("dummy"))
+                .depTest(this.testRepository.getReferenceById("dummy"))
                 .sortSeq(1)
                 .build());
 
@@ -77,8 +79,6 @@ public class TestService {
                 .build());
 
         test.setTestVerLatest(testVer);
-        this.testRepository.flush();
-
         test.setTestDeps(Collections.singletonList(testDep));
         test.setTestVers(Collections.singletonList(testVer));
         return test;
@@ -100,8 +100,6 @@ public class TestService {
                     .build());
 
             test.setTestVerLatest(testVer);
-            this.testRepository.flush();
-
             test.getTestVers().add(0, testVer);
         }
 
