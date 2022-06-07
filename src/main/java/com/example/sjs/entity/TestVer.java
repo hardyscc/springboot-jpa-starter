@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
@@ -35,7 +34,7 @@ public class TestVer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testVerSeq")
-    @SequenceGenerator(name = "testVerSeq", sequenceName = "sq_test_ver")
+    @SequenceGenerator(name = "testVerSeq", sequenceName = "sq_test_ver", initialValue = 100001)
     private Long id;
 
     @JsonIgnore
@@ -46,12 +45,10 @@ public class TestVer extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String[] attributes;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private RegisterInfo registerInfo;
 
     @Column(nullable = false)

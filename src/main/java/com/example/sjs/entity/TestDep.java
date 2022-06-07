@@ -27,7 +27,7 @@ public class TestDep {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "testDepSeq")
-    @SequenceGenerator(name = "testDepSeq", sequenceName = "sq_test_dep")
+    @SequenceGenerator(name = "testDepSeq", sequenceName = "sq_test_dep", initialValue = 100001)
     private Long id;
 
     @JsonIgnore

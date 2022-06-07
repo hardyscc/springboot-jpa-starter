@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Lob;
 
 import com.example.sjs.entity.base.BaseEntity;
 import com.example.sjs.udt.RecordStatus;
@@ -25,8 +24,7 @@ public class Message extends BaseEntity {
     @Id
     private String code;
 
-    @Lob
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "text")
     private String description;
 
     @JsonIgnore
